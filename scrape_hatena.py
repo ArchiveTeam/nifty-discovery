@@ -25,8 +25,9 @@ for domain in DOMAINS:
             
             soup = BeautifulSoup(r.text, "lxml")
             for link in soup.find_all(class_='entry-link'):
-                url = str(link['href'])
-                urls.append(url)
+                url = str(link['href']).strip()
+                if url:
+                    urls.append(url)
         
         except Exception as ex:
             print(ex)
@@ -44,3 +45,4 @@ for domain in DOMAINS:
         
         if not urls:
             print("No urls at domain={} of={}, scraping next domain".format(domain, of))
+            break
